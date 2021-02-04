@@ -3,7 +3,7 @@ function makeGamesArray() {
         {
             id: "AuBvbISHR6",
             name: "Ticket To Ride",
-            msrp: 49.99,
+            msrp: "49.99",
             min_players: 2,
             max_players: 5,
             min_playtime: 45,
@@ -13,13 +13,13 @@ function makeGamesArray() {
             rules: "https://ncdn0.daysofwonder.com/tickettoride/en/img/tt_rules_2015_en.pdf",
             small_image: "https://d2k4q26owzy373.cloudfront.net/150x150/games/uploaded/1559254202421-61wLscAHHSL.jpg",
             medium_image: "https://d2k4q26owzy373.cloudfront.net/350x350/games/uploaded/1559254202421-61wLscAHHSL.jpg",
-            large_image: "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254202421-61wLscAHHSL.jpg",
+            original_image: "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254202421-61wLscAHHSL.jpg",
             data_entered: new Date('2029-01-22T16:28:32.615Z')
         },
         {
             id: "7UFLK3V2Tg",
             name: "Hues and Cues",
-            msrp: 25,
+            msrp: "25",
             min_players: 3,
             max_players: 10,
             min_playtime: 15,
@@ -29,13 +29,13 @@ function makeGamesArray() {
             rules: null,
             small_image: "https://d2k4q26owzy373.cloudfront.net/150x150/games/uploaded/1588604425297",
             medium_image: "https://d2k4q26owzy373.cloudfront.net/350x350/games/uploaded/1588604425297",
-            large_image: "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1588604425297",
+            original_image: "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1588604425297",
             data_entered: new Date('2100-05-22T16:28:32.615Z')
         },
         {
             id: "uOhZRZa3xN",
             name: "Boggle",
-            msrp: 9.99,
+            msrp: "9.99",
             min_players: 1,
             max_players: 8,
             min_playtime: 10,
@@ -45,7 +45,7 @@ function makeGamesArray() {
             rules: null,
             small_image: "https://d2k4q26owzy373.cloudfront.net/150x150/games/uploaded/1596747678447",
             medium_image: "https://d2k4q26owzy373.cloudfront.net/350x350/games/uploaded/1596747678447",
-            large_image: "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1596747678447",
+            original_image: "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1596747678447",
             data_entered: new Date('1919-12-22T16:28:32.615Z')
         }
     ]

@@ -1,7 +1,7 @@
 CREATE TABLE games (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
-    msrp integer,
+    msrp numeric,
     min_players integer,
     max_players integer,
     min_playtime integer,
