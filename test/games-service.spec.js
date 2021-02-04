@@ -3,7 +3,7 @@ const knex = require('knex')
 const GamesService = require('../src/games/games-service')
 const {makeGamesArray} = require('./games-fixtures')
 
-describe.only(`Games service object`, function() {
+describe(`Games service object`, function() {
     let db;
 
     let testGames = makeGamesArray()
