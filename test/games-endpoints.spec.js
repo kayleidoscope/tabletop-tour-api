@@ -4,7 +4,7 @@ const supertest = require('supertest');
 const app = require('../src/app')
 const {makeGamesArray} = require('./games-fixtures')
 
-describe.only('Games endpoints', function() {
+describe('Games endpoints', function() {
     let db
 
     const testGames = makeGamesArray()
