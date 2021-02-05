@@ -6,7 +6,7 @@ const {makeGamesArray} = require('./games-fixtures')
 const {makeUsersArray} = require('./users-fixtures')
 
 
-describe.only(`Users' games service object`, function () {
+describe(`Users' games service object`, function () {
     let db;
 
     let testUsersGames = makeUsersGamesArray()

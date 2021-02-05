@@ -15,7 +15,7 @@ function makeUsersGamesArray() {
             user_saved: true
         },
         {
-            user_id: 1,
+            user_id: 2,
             game_id: 'uOhZRZa3xN',
             user_played: true,
             user_loved: true,

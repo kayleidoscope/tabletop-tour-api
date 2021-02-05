@@ -7,6 +7,7 @@ const { NODE_ENV } = require('./config')
 const { restart } = require('nodemon')
 const usersRouter = require('./users/users-router')
 const gamesRouter = require('./games/games-router')
+const usersGamesRouter = require('./usersGames/usersGames-router')
 
 
 const app = express()
@@ -21,6 +22,7 @@ app.use(cors())
 
 app.use('/api/users', usersRouter)
 app.use('/api/games', gamesRouter)
+app.use('/api/users-games', usersGamesRouter)
 
 
 app.get('/', (req, res) => {
