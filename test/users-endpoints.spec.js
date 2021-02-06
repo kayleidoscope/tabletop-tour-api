@@ -40,6 +40,18 @@ describe('Users endpoints', function() {
                         {...user, acct_created: user.acct_created.toISOString()}
                     )))
             })
+
+            it('GET /api/users?username=[?] returns a single user', () => {
+                const username = 'Tessa Testerson'
+                const expectedUser = testUsers.find(user => user.username === username)
+
+                return supertest(app)
+                    .get(`/api/users?username=${username}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+                    .expect(200, {
+                        ...expectedUser, acct_created: expectedUser.acct_created.toISOString()
+                    })
+            })
         })
 
         context('Given there are no users in the database', () => {

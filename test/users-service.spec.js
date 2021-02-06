@@ -45,6 +45,19 @@ describe(`Users service object`, function() {
                     })
                 })
         })
+        it('getByUsername() resolves a user by username from users', () => {
+            const username = 'Tessa Testerson'
+            const expectedUser = testUsers.find(user => user.username === username)
+
+            return UsersService.getByUsername(db, username)
+                .then(actual => {
+                    expect(actual).to.eql({
+                        id: expectedUser.id,
+                        username: expectedUser.username,
+                        acct_created: expectedUser.acct_created
+                    })
+                })
+        })
         it(`deleteUser() removes a user by id from 'users`, () => {
             const userId = 3;
             return UsersService.deleteUser(db, userId)

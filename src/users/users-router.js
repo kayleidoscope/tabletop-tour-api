@@ -9,11 +9,21 @@ usersRouter
     .route('/')
     .get((req, res, next) => {
         const knexInstance = req.app.get('db')
-        UsersService.getAllUsers(knexInstance)
-            .then(users => {
-                res.json(users)
-            })
-            .catch(next)
+        const {username} = req.query
+
+        if (username) {
+            UsersService.getByUsername(knexInstance, username)
+                .then(users => {
+                    res.json(users)
+                })
+                .catch(next)
+        } else {
+            UsersService.getAllUsers(knexInstance)
+                .then(users => {
+                    res.json(users)
+                })
+                .catch(next)
+        }
     })
     .post(jsonParser, (req, res, next) => {
         const {username} = req.body
