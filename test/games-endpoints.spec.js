@@ -34,6 +34,7 @@ describe('Games endpoints', function() {
             it('GET /api/games responds with 200 and all of the games', () => {
                 return supertest(app)
                     .get('/api/games')
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, testGames.map(game => (
                         {...game, data_entered: game.data_entered.toISOString()}
                     )))
@@ -44,6 +45,7 @@ describe('Games endpoints', function() {
             it ('responds with 200 and an empty list', () => {
                 return supertest(app)
                     .get('/api/games')
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, [])
             })
         })
@@ -62,6 +64,7 @@ describe('Games endpoints', function() {
                 const expectedGame = testGames.find(game => game.id === id)
                 return supertest(app)
                     .get(`/api/games/${id}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, {...expectedGame, data_entered: expectedGame.data_entered.toISOString()})
             })
         })
@@ -75,6 +78,7 @@ describe('Games endpoints', function() {
 
             return supertest(app)
                 .post('/api/games')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .send(newGame)
                 .expect(201)
                 .expect(res => {
@@ -94,12 +98,14 @@ describe('Games endpoints', function() {
                 .then(res =>
                     supertest(app)
                         .get(`/api/games/${res.body.id}`)
+                        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                         .expect(res.body)
                 )
         })
         it('responds with 400 and an error message when required fields are missing', () => {
             return supertest(app)
                 .post('/api/games')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .send({})
                 .expect(400, {
                     error: {message: 'An id and name are required'}
@@ -113,6 +119,7 @@ describe('Games endpoints', function() {
                 const id = "7UFLK3V2Tg"
                 return supertest(app)
                     .delete(`/api/games/${id}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(404, { error: {message: `Game not in system`}})
             })
         })
@@ -128,10 +135,12 @@ describe('Games endpoints', function() {
                 const expectedGames = testGames.filter(game => game.id !== idToRemove)
                 return supertest(app)
                     .delete(`/api/games/${idToRemove}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(204)
                     .then(res =>
                         supertest(app)
                             .get('/api/games')
+                            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                             .expect(expectedGames.map(game => (
                                 {...game, data_entered: game.data_entered.toISOString()}
                             )))
@@ -146,6 +155,7 @@ describe('Games endpoints', function() {
                 const id = "7UFLK3V2Tg"
                 return supertest(app)
                     .patch(`/api/games/${id}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(404, { error: {message: `Game not in system`}})
             })
         })
@@ -169,11 +179,13 @@ describe('Games endpoints', function() {
                 }
                 return supertest(app)
                     .patch(`/api/games/${idToUpdate}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .send(updatedGame)
                     .expect(204)
                     .then(res =>
                         supertest(app)
                             .get(`/api/games/${idToUpdate}`)
+                            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                             .expect({...expectedGame, data_entered: expectedGame.data_entered.toISOString()})
                     )
             })
@@ -183,6 +195,7 @@ describe('Games endpoints', function() {
 
                 return supertest(app)
                     .patch(`/api/games/${idToUpdate}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .send({ irrelevantField: 'foo' })
                     .expect(400, {
                         error: {

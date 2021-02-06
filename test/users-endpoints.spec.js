@@ -35,6 +35,7 @@ describe('Users endpoints', function() {
             it('GET /api/users responds with 200 and all of the users', () => {
                 return supertest(app)
                     .get('/api/users')
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, testUsers.map(user => (
                         {...user, acct_created: user.acct_created.toISOString()}
                     )))
@@ -45,6 +46,7 @@ describe('Users endpoints', function() {
             it('responds with 200 and an empty list', () => {
                 return supertest(app)
                     .get('/api/users')
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, [])
             })
         })
@@ -65,6 +67,7 @@ describe('Users endpoints', function() {
                 const expectedUser = testUsers[userId - 1]
                 return supertest(app)
                     .get(`/api/users/${userId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, {...expectedUser, acct_created: expectedUser.acct_created.toISOString()})
             })
         })
@@ -83,6 +86,7 @@ describe('Users endpoints', function() {
             it('removes XSS attack content', () => {
                 return supertest(app)
                     .get(`/api/users/${evilUser.id}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200)
                     .expect(res => {
                         expect(res.body.username).to.eql('Naughty1&lt;script&gt;alert(\"xss\");&lt;/script&gt;')
@@ -100,6 +104,7 @@ describe('Users endpoints', function() {
             it('removes XSS attack content', () => {
                 return supertest(app)
                     .post(`/api/users`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .send(evilUser)
                     .expect(201)
                     .expect(res => {
@@ -117,6 +122,7 @@ describe('Users endpoints', function() {
 
             return supertest(app)
                 .post('/api/users')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .send(newUser)
                 .expect(201)
                 .expect(res => {
@@ -130,6 +136,7 @@ describe('Users endpoints', function() {
                 .then(res => 
                     supertest(app)
                         .get(`/api/users/${res.body.id}`)
+                        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                         .expect(res.body)
                 )
         })
@@ -137,6 +144,7 @@ describe('Users endpoints', function() {
         it('responds with 400 and an error message when username is missing', () => {
             return supertest(app)
                 .post('/api/users')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .send({})
                 .expect(400, {
                     error: {message: 'You must provide a username'}
@@ -150,6 +158,7 @@ describe('Users endpoints', function() {
                 const userId = 525600
                 return supertest(app)
                     .delete(`/api/users/${userId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(404, { error: { message: `User doesn't exist` } })
             })
         })
@@ -167,10 +176,12 @@ describe('Users endpoints', function() {
                 const expectedUsers = testUsers.filter(user => user.id !== idToRemove)
                 return supertest(app)
                     .delete(`/api/users/${idToRemove}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(204)
                     .then(res =>
                         supertest(app)
                             .get('/api/users')
+                            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                             .expect(expectedUsers.map(user => (
                                  {...user, acct_created: user.acct_created.toISOString()} 
                             )))
@@ -186,6 +197,7 @@ describe('Users endpoints', function() {
                 const userId = 525600
                 return supertest(app)
                     .patch(`/api/users/${userId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(404, { error: { message: `User doesn't exist` } })
             })
         })
@@ -210,11 +222,13 @@ describe('Users endpoints', function() {
                 }
                 return supertest(app)
                     .patch(`/api/users/${idToUpdate}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .send(updatedUser)
                     .expect(204)
                     .then(res => 
                         supertest(app)
                             .get(`/api/users/${idToUpdate}`)
+                            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                             .expect({...expectedUser, acct_created: expectedUser.acct_created.toISOString()})
                     )
             })
@@ -223,6 +237,7 @@ describe('Users endpoints', function() {
 
                 return supertest(app)
                     .patch(`/api/users/${idToUpdate}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .send({ irrelevantField: 'foo' })
                     .expect(400, {
                         error: {
@@ -241,6 +256,7 @@ describe('Users endpoints', function() {
                 }
                 return supertest(app)
                     .patch(`/api/users/${idToUpdate}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .send({
                         ...updatedUser,
                         fieldToIgnore: 'should not be in GET response'
@@ -249,6 +265,7 @@ describe('Users endpoints', function() {
                     .then(res => 
                         supertest(app)
                             .get(`/api/users/${idToUpdate}`)
+                            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                             .expect({...expectedUser, acct_created: expectedUser.acct_created.toISOString()})
                     )
             })

@@ -49,6 +49,7 @@ describe('/users-games endpoints', function () {
             it('GET /api/users-games responds with 200 and all of the games', () => {
                 return supertest(app)
                     .get('/api/users-games')
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, testUsersGames)
             })
     
@@ -58,6 +59,7 @@ describe('/users-games endpoints', function () {
     
                 return supertest(app)
                     .get(`/api/users-games?user_id=${userId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, expectedGames)
             })
         })
@@ -66,6 +68,7 @@ describe('/users-games endpoints', function () {
             it('responds with 200 and an empty list', () => {
                 return supertest(app)
                     .get('/api/games')
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, [])
             })
         })
@@ -96,6 +99,7 @@ describe('/users-games endpoints', function () {
                 const expectedItem = testUsersGames.find(usersGame => usersGame.user_id === userId && usersGame.game_id ===gameId)
                 return supertest(app)
                     .get(`/api/users-games/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, expectedItem)
             })
         })
@@ -107,6 +111,7 @@ describe('/users-games endpoints', function () {
     
                 return supertest(app)
                     .get(`/api/users-games/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(404, {
                         error: {message: `Users-game item not in system`}
                     })
@@ -131,6 +136,7 @@ describe('/users-games endpoints', function () {
 
             return supertest(app)
                 .post('/api/users-games')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .send(newEntry)
                 .expect(201)
                 .expect(res => {
@@ -143,6 +149,7 @@ describe('/users-games endpoints', function () {
                 .then(res =>
                     supertest(app)
                         .get(`/api/users-games/${res.body.user_id}/${res.body.game_id}`)
+                        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                         .expect(res.body)
                 )
         })
@@ -150,6 +157,7 @@ describe('/users-games endpoints', function () {
         it('responds with 400 and an error message when required fields are missing', () => {
             return supertest(app)
                 .post('/api/users-games')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .send({})
                 .expect(400, {
                     error: {message: 'User_id and game_id are required'}
@@ -164,6 +172,7 @@ describe('/users-games endpoints', function () {
                 const gameId = "7UFLK3V2Tg"
                 return supertest(app)
                     .delete(`/api/users-games/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(404, {
                         error: {message: `Users-game item not in system`}
                     })
@@ -193,10 +202,12 @@ describe('/users-games endpoints', function () {
 
                 return supertest(app)
                     .delete(`/api/users-games/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(204)
                     .then(res =>
                         supertest(app)
                             .get(`/api/users-games/${userId}/${gameId}`)
+                            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                             .expect(404, {
                                 error: {message: `Users-game item not in system`}
                             })
@@ -212,6 +223,7 @@ describe('/users-games endpoints', function () {
                 const gameId = "7UFLK3V2Tg"
                 return supertest(app)
                     .delete(`/api/users-games/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(404, {
                         error: {message: `Users-game item not in system`}
                     })
@@ -250,11 +262,13 @@ describe('/users-games endpoints', function () {
 
                 return supertest(app)
                     .patch(`/api/users-games/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .send(updatedField)
                     .expect(204)
                     .then(res =>
                         supertest(app)
                             .get(`/api/users-games/${userId}/${gameId}`)
+                            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                             .expect(expectedObject)
                     )
             })
@@ -265,6 +279,7 @@ describe('/users-games endpoints', function () {
 
                 return supertest(app)
                     .patch(`/api/users-games/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .send({ irrelevantField: 'foo' })
                     .expect(400, {
                         error: {

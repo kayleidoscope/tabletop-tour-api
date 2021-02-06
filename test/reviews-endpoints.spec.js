@@ -49,6 +49,7 @@ describe('/reviews endpoints', function() {
             it('GET /api/reviews responds with 200 and all of the reviews', () => {
                 return supertest(app)
                     .get('/api/reviews')
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, testReviews.map(review => (
                         {...review, review_posted: review.review_posted.toISOString()}
                     )))
@@ -60,6 +61,7 @@ describe('/reviews endpoints', function() {
 
                 return supertest(app)
                     .get(`/api/reviews?user_id=${userId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, expectedReviews.map(review => (
                         {...review, review_posted: review.review_posted.toISOString()}
                     )))
@@ -71,6 +73,7 @@ describe('/reviews endpoints', function() {
 
                 return supertest(app)
                     .get(`/api/reviews?game_id=${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, expectedReviews.map(review => (
                         {...review, review_posted: review.review_posted.toISOString()}
                     )))
@@ -81,6 +84,7 @@ describe('/reviews endpoints', function() {
             it('responds with 200 and an empty list', () => {
                 return supertest(app)
                     .get('/api/reviews')
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, [])
             })
         })
@@ -112,6 +116,7 @@ describe('/reviews endpoints', function() {
                 
                 return supertest(app)
                     .get(`/api/reviews/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, {
                         ...expectedReview, review_posted: expectedReview.review_posted.toISOString()
                     })
@@ -125,6 +130,7 @@ describe('/reviews endpoints', function() {
 
                 return supertest(app)
                     .get(`/api/reviews/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(404, {
                         error: {message: `This review does not exist.`}
                     })
@@ -159,6 +165,7 @@ describe('/reviews endpoints', function() {
 
             return supertest(app)
                 .post('/api/reviews')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .send(newReview)
                 .expect(201)
                 .expect(res => {
@@ -171,6 +178,7 @@ describe('/reviews endpoints', function() {
                 .then(res =>
                     supertest(app)
                         .get(`/api/reviews/${res.body.user_id}/${res.body.game_id}`)
+                        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                         .expect(res.body)
                 )
         })
@@ -178,6 +186,7 @@ describe('/reviews endpoints', function() {
         it('responds with 400 and an error message when required fields are missing', () => {
             return supertest(app)
                 .post('/api/reviews')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .send({})
                 .expect(400, {
                     error: {message: 'User_id, game_id, review, and rating are required'}
@@ -192,6 +201,7 @@ describe('/reviews endpoints', function() {
                 const gameId = "7UFLK3V2Tg"
                 return supertest(app)
                     .delete(`/api/reviews/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(404, {
                         error: {message: `This review does not exist.`}
                     })
@@ -221,10 +231,12 @@ describe('/reviews endpoints', function() {
 
                 return supertest(app)
                     .delete(`/api/reviews/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(204)
                     .then(res =>
                         supertest(app)
                             .get(`/api/reviews/${userId}/${gameId}`)
+                            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                             .expect(404, {
                                 error: {message: `This review does not exist.`}
                             })
@@ -240,6 +252,7 @@ describe('/reviews endpoints', function() {
                 const gameId = "7UFLK3V2Tg"
                 return supertest(app)
                     .delete(`/api/reviews/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(404, {
                         error: {message: `This review does not exist.`}
                     })
@@ -279,11 +292,13 @@ describe('/reviews endpoints', function() {
 
                 return supertest(app)
                     .patch(`/api/reviews/${userId}/${gameId}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .send(updatedField)
                     .expect(204)
                     .then(res =>
                         supertest(app)
                             .get(`/api/reviews/${userId}/${gameId}`)
+                            .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                             .expect({
                                 ...expectedObject, review_posted: expectedObject.review_posted.toISOString()
                             })
