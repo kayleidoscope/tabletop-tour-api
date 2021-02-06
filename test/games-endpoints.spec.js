@@ -17,9 +17,9 @@ describe('Games endpoints', function() {
         app.set('db', db)
     })
 
-    before(() => db.raw('TRUNCATE games'))
+    before(() => db.raw('TRUNCATE games RESTART IDENTITY CASCADE'))
 
-    afterEach(() => db.raw('TRUNCATE games'))
+    afterEach(() => db.raw('TRUNCATE games RESTART IDENTITY CASCADE'))
     
     after('disconnect from db', () => db.destroy())
 

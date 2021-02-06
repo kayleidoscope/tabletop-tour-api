@@ -8,7 +8,7 @@ const { restart } = require('nodemon')
 const usersRouter = require('./users/users-router')
 const gamesRouter = require('./games/games-router')
 const usersGamesRouter = require('./usersGames/usersGames-router')
-
+const reviewsRouter = require('./reviews/reviews-router')
 
 const app = express()
 
@@ -23,7 +23,7 @@ app.use(cors())
 app.use('/api/users', usersRouter)
 app.use('/api/games', gamesRouter)
 app.use('/api/users-games', usersGamesRouter)
-
+app.use('/api/reviews', reviewsRouter)
 
 app.get('/', (req, res) => {
     res.send('Hello, world!')

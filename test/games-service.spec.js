@@ -15,9 +15,9 @@ describe(`Games service object`, function() {
         })
     })
 
-    before(() => db.raw('TRUNCATE games'))
+    before(() => db.raw('TRUNCATE games RESTART IDENTITY CASCADE'))
 
-    afterEach(() => db.raw('TRUNCATE games'))
+    afterEach(() => db.raw('TRUNCATE games RESTART IDENTITY CASCADE'))
 
     after(() => db.destroy())
 

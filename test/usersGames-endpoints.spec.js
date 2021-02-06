@@ -5,9 +5,8 @@ const app = require('../src/app')
 const {makeUsersGamesArray} = require('./usersGames-fixtures')
 const {makeGamesArray} = require('./games-fixtures')
 const {makeUsersArray} = require('./users-fixtures');
-const usersGamesRouter = require('../src/usersGames/usersGames-router');
 
-describe.only('/users-games endpoints', function () {
+describe('/users-games endpoints', function () {
     let db;
 
     let testUsersGames = makeUsersGamesArray()
@@ -102,7 +101,7 @@ describe.only('/users-games endpoints', function () {
         })
 
         context('Given there are no items in the table', () => {
-            it('GET /api/users-grams/[user_id]/[game_id] responds with an error messsage', () => {
+            it('GET /api/users-games/[user_id]/[game_id] responds with an error messsage', () => {
                 const userId = 10
                 const gameId = "7UXXK3V2Tg"
     
