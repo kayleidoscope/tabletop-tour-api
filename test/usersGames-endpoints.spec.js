@@ -247,7 +247,7 @@ describe('/users-games endpoints', function () {
                     })
             })
 
-            it('responds with 204 and updates the item', () => {
+            it.only('responds with 204 and updates the item', () => {
                 const userId = 1
                 const gameId = "7UFLK3V2Tg"
                 const updatedField = {

@@ -14,6 +14,9 @@ usersRouter
         if (username) {
             UsersService.getByUsername(knexInstance, username)
                 .then(users => {
+                    if (!users) {
+                        res.json({})
+                    }
                     res.json(users)
                 })
                 .catch(next)
