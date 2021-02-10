@@ -272,21 +272,6 @@ describe('/users-games endpoints', function () {
                             .expect(expectedObject)
                     )
             })
-
-            it('responds with 400 when no required fields are supplied', () => {
-                const userId = 1
-                const gameId = "7UFLK3V2Tg"
-
-                return supertest(app)
-                    .patch(`/api/users-games/${userId}/${gameId}`)
-                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
-                    .send({ irrelevantField: 'foo' })
-                    .expect(400, {
-                        error: {
-                            message: `Request body must contain one of the following fields: user_id, game_id, user_played, user_loved, user_saved`
-                        }
-                    })
-            })
         })
     })
 })
