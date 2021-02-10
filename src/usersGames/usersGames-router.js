@@ -87,13 +87,6 @@ usersGamesRouter
         const {user_id, game_id, user_played, user_loved, user_saved} = req.body
         const updatedFields = {user_id, game_id, user_played, user_loved, user_saved}
 
-        const numOfValues = Object.values(updatedFields).filter(Boolean).length
-        if(numOfValues === 0)
-            return res.status(400).json({
-                error: {
-                    message: `Request body must contain one of the following fields: user_id, game_id, user_played, user_loved, user_saved`
-                }
-            })
 
         UsersGamesService.updateUsersGame(
             req.app.get('db'),
