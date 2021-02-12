@@ -1,6 +1,5 @@
 const path = require('path')
 const express = require('express');
-const xss = require('xss')
 const gamesRouter = express.Router();
 const GamesService = require('./games-service.js');
 const jsonParser = express.json()

@@ -4,6 +4,8 @@ Used in conjunction with the Tabletop Tour app, this API provides the functional
 
 You can also view the [live site](https://tabletop-tour.vercel.app/game/fG5Ax8PA7n) or visit the [frontend repo](https://github.com/kayleidoscope/tabletop-tour-app).
 
+This app uses board game data from [Board Game Atlas](https://www.boardgameatlas.com/). Thanks for having amazing documentation!
+
 This API is not open for public use at this time, but is CORS compatible. The API will respond with a JSON object.
 
 ## Endpoints
